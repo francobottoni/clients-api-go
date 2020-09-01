@@ -37,7 +37,6 @@ func (s *ClientStorage) Add(cmd *CreateClientCMD) (*Client, error) {
 		_ = tx.Rollback()
 		return nil, err
 	}
-
 	_ = tx.Commit() //Use commit in a happy case
 
 	return &Client{

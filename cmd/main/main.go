@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/francobottoni/client-api/cmd/server"
+	"github.com/francobottoni/client-api/handlers"
 	"github.com/francobottoni/client-api/internal/database"
 	"github.com/francobottoni/client-api/internal/log"
 	_ "github.com/go-sql-driver/mysql"
@@ -20,9 +22,9 @@ func main() {
 	client := database.NewSqlClient("root@tcp(localhost:3306)/client_db")
 	doMigrate(client, "client_db")
 
-	mux := Routes()
-
-	server := NewServer(mux)
+	handler := handlers.NewCreateClientHandler(client)
+	mux := server.Routes(handler)
+	server := server.NewServer(mux)
 	server.Run()
 }
 
