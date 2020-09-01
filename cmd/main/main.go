@@ -21,6 +21,7 @@ func main() {
 	doMigrate(client, "client_db")
 
 	mux := Routes()
+
 	server := NewServer(mux)
 	server.Run()
 }
