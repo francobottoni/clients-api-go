@@ -11,12 +11,8 @@ import (
 func (h *CreateClientHandler) SaveClientHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 
-	res, err := h.Create(&models.CreateClientCMD{
-		DNI:           39098710,
-		Name:          "franco",
-		LastName:      "bottoni",
-		CountryOrigin: "argentina",
-	})
+	cmd := parseRequest(r)
+	res, err := h.Create(cmd)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -36,4 +32,14 @@ type CreateClientHandler struct {
 
 func NewCreateClientHandler(c *database.MySqlClient) *CreateClientHandler {
 	return &CreateClientHandler{models.NewClientCreate(c)}
+}
+
+func parseRequest(r *http.Request) *models.CreateClientCMD {
+	body := r.Body
+	defer body.Close()
+	var cmd models.CreateClientCMD
+
+	_ = json.NewDecoder(body).Decode(&cmd)
+
+	return &cmd
 }

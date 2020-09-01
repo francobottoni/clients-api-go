@@ -21,7 +21,7 @@ func (s *ClientStorage) Add(cmd *CreateClientCMD) (*Client, error) {
 		return nil, err
 	}
 
-	res, err := tx.Exec(`insert into client (dni, name, price, country_origin)
+	res, err := tx.Exec(`insert into client (dni, name, last_name, country_origin)
 	values (?, ?, ?, ?)`, cmd.DNI, cmd.Name, cmd.LastName, cmd.CountryOrigin)
 
 	if err != nil {

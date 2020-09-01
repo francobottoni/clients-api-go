@@ -13,6 +13,6 @@ type Client struct {
 type CreateClientCMD struct {
 	DNI           int64  `json:"dni"`
 	Name          string `json:"name"`
-	LastName      string `json:"last_name"`
-	CountryOrigin string `json:"country_origin"`
+	LastName      string `json:"lastname"`
+	CountryOrigin string `json:"countryorigin"`
 }
